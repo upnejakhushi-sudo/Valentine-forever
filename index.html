@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Mere Pyare Patidev ❤️</title>
+
+<style>
+*{box-sizing:border-box;}
+
+body{
+    margin:0;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#ff4d6d,#ff8fab);
+    font-family:'Poppins',sans-serif;
+    color:white;
+    overflow:hidden;
+    padding:12px;
+}
+
+/* Falling Hearts & Roses */
+.fall{
+    position:fixed;
+    top:-10px;
+    animation:fall linear infinite;
+    opacity:0.85;
+    z-index:1;
+}
+@keyframes fall{
+    to{transform:translateY(110vh) rotate(360deg);}
+}
+
+/* Fireworks */
+.firework{
+    position:fixed;
+    width:6px;
+    height:6px;
+    background:white;
+    border-radius:50%;
+    animation:explode 1s ease-out forwards;
+    z-index:1;
+}
+@keyframes explode{
+    to{transform:scale(28);opacity:0;}
+}
+
+/* Main Card */
+.card{
+    background:rgba(255,255,255,0.18);
+    padding:22px;
+    border-radius:24px;
+    text-align:center;
+    width:100%;
+    max-width:420px;
+    max-height:90vh;
+    overflow-y:auto;
+    box-shadow:0 20px 45px rgba(0,0,0,0.4);
+    backdrop-filter:blur(12px);
+    z-index:5;
+}
+.card::-webkit-scrollbar{display:none;}
+
+h1{font-size:26px;margin:0;}
+h2{font-weight:300;margin:6px 0 12px;}
+
+.heart{
+    font-size:44px;
+    animation:beat 1s infinite;
+}
+@keyframes beat{50%{transform:scale(1.3);}}
+
+/* Text */
+.text{
+    font-size:15px;
+    line-height:1.6;
+    margin:14px 0;
+    min-height:60px;
+}
+
+/* Buttons */
+.buttons{
+    position:relative;
+    height:58px;
+    margin-top:10px;
+}
+
+button{
+    padding:13px 26px;
+    border:none;
+    border-radius:30px;
+    font-size:15px;
+    cursor:pointer;
+}
+
+#yes{
+    background:#ff2f6d;
+    color:white;
+    box-shadow:0 0 15px rgba(255,47,109,0.8);
+}
+
+#no{
+    background:white;
+    color:#ff2f6d;
+    position:absolute;
+}
+
+/* Photo */
+.photo{
+    width:190px;
+    height:190px;
+    border-radius:20px;
+    object-fit:cover;
+    margin:14px auto;
+    box-shadow:0 15px 30px rgba(0,0,0,0.4);
+}
+
+/* Typing text */
+.proposal-text{
+    text-align:left;
+    font-size:15px;
+    line-height:1.7;
+    margin-top:15px;
+}
+
+/* Signature */
+.signature{
+    margin-top:16px;
+    font-size:14px;
+    text-align:right;
+}
+.signature span{
+    font-size:22px;
+    font-family:cursive;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Background Music -->
+<audio id="music" loop>
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<div class="card">
+    <h1>Hey ❤️</h1>
+    <h2>Mere Pyare Patidev</h2>
+
+    <div class="heart">💖</div>
+
+    <div class="text" id="text">
+        Suno na… ek baat poochni hai 😌
+    </div>
+
+    <div class="buttons">
+        <button id="yes">Haan bolo 😏</button>
+        <button id="no">Nahi 🙈</button>
+    </div>
+
+    <div id="final" style="display:none;">
+        <img src="photo.jpg" class="photo">
+
+        <div class="proposal-text" id="proposalText"></div>
+
+        <div class="signature">
+            Forever yours,<br>
+            <span>Biwi ji</span>
+        </div>
+    </div>
+</div>
+
+<script>
+/* Hearts & Roses rain */
+setInterval(()=>{
+    const e=document.createElement("div");
+    e.className="fall";
+    e.innerHTML=Math.random()>0.5?"💖":"🌹";
+    e.style.left=Math.random()*100+"vw";
+    e.style.fontSize=(Math.random()*12+16)+"px";
+    e.style.animationDuration=(Math.random()*3+3)+"s";
+    document.body.appendChild(e);
+    setTimeout(()=>e.remove(),6000);
+},300);
+
+/* Fireworks */
+function fireworks(){
+    for(let i=0;i<8;i++){
+        const f=document.createElement("div");
+        f.className="firework";
+        f.style.left=Math.random()*100+"vw";
+        f.style.top=Math.random()*100+"vh";
+        document.body.appendChild(f);
+        setTimeout(()=>f.remove(),1000);
+    }
+}
+
+/* Teasing flow */
+const texts=[
+    "Suno na… ek baat poochni hai 😌",
+    "Promise gussa nahi karoge? 🙈",
+    "Dil se jawab dena 😏",
+    "Achha… last warning 😈"
+];
+const yesTexts=[
+    "Haan bolo 😏",
+    "Okay 😌",
+    "Ab bolo 😳",
+    "Fine…"
+];
+
+let step=0;
+const yes=document.getElementById("yes");
+const no=document.getElementById("no");
+const text=document.getElementById("text");
+const final=document.getElementById("final");
+const music=document.getElementById("music");
+
+/* Typing Proposal */
+const proposalMessage = `
+Hey baby 💖
+
+I love youu so much meri jaaan ❤️❤️
+You are my life, my heartbeat…
+you make my boring life cheerful baby ji ❤️
+
+With you by my side, I can do anything 💪💕
+
+I cannot imagine my life without youu 🥺
+Since you are my life ❤️
+
+Pta h kbhi socha ni tha itna pyara insaan mil jayega mujhe 🫶
+You are my that person who gives me peace
+with just being there jaan ❤️
+
+Jaane kya khaas h aapme
+ki hmara dhyan khi aur jata hi nhi h
+bss aapke khyalo aur khwabo me hi reh jata h
+btao kya kree 🥺🤣😙😳💋❤️
+
+Is bheed ki duniya me
+tu meri iklouti chahat h
+ab to har roz hi rab se
+bss tu hi meri ibadat h ❤️
+
+Tujhe pana meri sabse badi jeet h ❤️
+jitna main bhagwan se ladi thi na
+bss tujhe paake lagta h
+sab aasan tha
+agar anjaam tu h 💖
+
+So meri jaan…
+will you be my Valentine forever? 🙈❤️
+
+(Bolna to haan hi padega 😌
+picha to main chhodne wali nahi hoon kyuki 😏💋)
+`;
+
+let index = 0;
+const speed = 32;
+
+function typeProposal(){
+    if(index < proposalMessage.length){
+        document.getElementById("proposalText").innerHTML +=
+        proposalMessage.charAt(index)==="\n"?"<br>":proposalMessage.charAt(index);
+        index++;
+        setTimeout(typeProposal,speed);
+    }
+}
+
+yes.onclick=()=>{
+    step++;
+    if(step<texts.length){
+        text.innerHTML=texts[step];
+        yes.innerHTML=yesTexts[step];
+    }else{
+        document.querySelector(".buttons").style.display="none";
+        text.style.display="none";
+        final.style.display="block";
+        music.play();
+        fireworks();
+        setInterval(fireworks,1500);
+        typeProposal();
+    }
+};
+
+no.onmouseover=()=>{
+    no.style.transform=`translate(${Math.random()*180-90}px,${Math.random()*120-60}px)`;
+};
+</script>
+
+</body>
+</html>
